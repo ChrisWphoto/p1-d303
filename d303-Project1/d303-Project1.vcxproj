@@ -66,6 +66,11 @@
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AssignNode.h" />
+    <ClInclude Include="Date\Date.h" />
+    <ClInclude Include="Date\StringTokenizer.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
