@@ -5,9 +5,21 @@ using namespace std;
 
 int main() {
 
-
+										//create node
 	AssignNode n; 
-	cout << n.getStatus();
+	cout << n.getStatus() << endl;		//print default status
+
+	n.setStatus(late);					//test setters
+
+	cout << n.getStatus() << endl;
+
+	n.setDueDate("2114-5-1");           //date is passed in as a string
+
+	cout << n.getDueDate().toString() << endl; //print set date
+
+	n.setAssignedDate("2011-1-1");
+
+	cout << n.getAssignedDate().toString() << endl;
 
 	system("pause");
 	return 0; 

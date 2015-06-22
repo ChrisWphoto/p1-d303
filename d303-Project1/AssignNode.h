@@ -20,8 +20,21 @@ public:
 	AssignNode(assignStatus theStatus = assignStatus::assigned) :status(theStatus){}
 
 
-	//getters and setters
+	//Status get/set
 	assignStatus getStatus(){ return status; }
+	void setStatus(assignStatus theStatus){ status = theStatus; }
+
+	//String get/set
+	string getDescript(){ return description; }
+	void setDescript(string theDescription){ description = theDescription; }
+
+	//dueDate get/set
+	Date getDueDate(){ return dueDate; }
+	void setDueDate(string theDueDate){ dueDate = Date(theDueDate); }
+
+	//assignedDate get/set
+	Date getAssignedDate(){ return assignedDate; }
+	void setAssignedDate(string theAssignedDate){ assignedDate = Date(theAssignedDate); }
 
 
 
