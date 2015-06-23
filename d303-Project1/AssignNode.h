@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "Date\Date.h"
+#include "Date\StringTokenizer.h"
 #include <string>
 
 
@@ -35,9 +36,45 @@ public:
 	//assignedDate get/set
 	Date getAssignedDate(){ return assignedDate; }
 	void setAssignedDate(string theAssignedDate){ assignedDate = Date(theAssignedDate); }
+	
+	//overloaded input operator for assignments
+	friend istream &operator>>(istream  &input, AssignNode &node)
+	{
+		string line; 
+		getline(input, line);
 
+		//tokenize line
+		String_Tokenizer st(line, ",");
+		
+		//vars to hold each value
+		string theDueDate, theDescription, assignedDate, theStatus;
 
+		theDueDate = st.next_token();
+		theDescription = st.next_token();
+		assignedDate = st.next_token();
+		theStatus = st.next_token();
 
+		//stripping white from assigned date and status
+		String_Tokenizer st2(assignedDate);
+		assignedDate = st2.next_token();
+
+		
+		String_Tokenizer st3(theStatus);
+		theStatus = st3.next_token();
+
+		//converting string of status to enum		
+		if ( theStatus == "assigned")
+			node.status = assignStatus::assigned;   
+		else if (theStatus == "completed")
+			node.status = assignStatus::completed; 
+		else if (theStatus == "late")
+			node.status = assignStatus::late; 
+		else
+			input.setstate(std::ios_base::failbit);
+		
+		return input;
+	}
+	
 };
 
 

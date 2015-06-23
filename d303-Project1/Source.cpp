@@ -1,9 +1,15 @@
 #include <iostream>
 #include "Date\Date.h"
 #include "AssignNode.h"
+#include "Date\StringTokenizer.h"
+#include <string>
+#include <fstream>
 using namespace std;
 
 int main() {
+
+	ifstream fin("input.txt");
+
 
 										//create node
 	AssignNode n; 
@@ -20,6 +26,16 @@ int main() {
 	n.setAssignedDate("2011-1-1");
 
 	cout << n.getAssignedDate().toString() << endl;
+
+	while (fin>>n)
+	{
+
+	}
+	
+
+	
+
+	
 
 	system("pause");
 	return 0; 
