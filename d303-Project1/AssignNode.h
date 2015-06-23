@@ -58,7 +58,13 @@ public:
 		String_Tokenizer st2(assignedDate);
 		assignedDate = st2.next_token();
 
-		
+		//assigning values
+		node.setDueDate(theDueDate);
+		node.setAssignedDate(assignedDate);
+		node.setDescript(theDescription);
+
+
+
 		String_Tokenizer st3(theStatus);
 		theStatus = st3.next_token();
 
@@ -72,9 +78,18 @@ public:
 		else
 			input.setstate(std::ios_base::failbit);
 		
+
 		return input;
 	}
 	
+	//overloaded output operator
+	friend ostream &operator<<(ostream &output, AssignNode &node)
+	{
+		output << "Due Date: " << node.getDueDate().toString() << endl << "Description: " 
+			<< node.getDescript() << endl << "Assigned Date: " << node.getAssignedDate().toString() << endl << "Status: " << node.getStatus() << endl;
+		return output;
+	}
+
 };
 
 

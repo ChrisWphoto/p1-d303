@@ -10,9 +10,11 @@ int main() {
 
 	ifstream fin("input.txt");
 
-
+	
 										//create node
 	AssignNode n; 
+	
+	/*
 	cout << n.getStatus() << endl;		//print default status
 
 	n.setStatus(late);					//test setters
@@ -26,11 +28,13 @@ int main() {
 	n.setAssignedDate("2011-1-1");
 
 	cout << n.getAssignedDate().toString() << endl;
+	*/
 
-	while (fin>>n)
-	{
+	
+	
+	fin >> n; 
 
-	}
+	cout << n; 
 	
 
 	
