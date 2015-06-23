@@ -1,5 +1,7 @@
+#pragma once
 #include <list>
 #include "AssignNode.h"
+
 using namespace std;
 
 class AssignmentList

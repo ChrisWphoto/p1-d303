@@ -66,7 +66,7 @@ int AssignmentList::getLateCount()
 	int lateCount = 0;
 	for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
 	{
-		if ((*itr).getStatus() == "late")
+		if ((*itr).getStatus() == assignStatus::late)
 			lateCount++;
 	}
 	return lateCount;
