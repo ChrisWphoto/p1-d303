@@ -1,73 +1,92 @@
+/*
 #include "AssignmentList.h"
 
 void AssignmentList::addAssignment(AssignNode A)
 {
-	assigned.push_back(A);
+	if (assigned.empty())
+	{
+		assigned.push_back(A);
+		return;
+	}
+	for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
+	{
+		if ((*itr).getDueDate() > A.getDueDate()) // If the assignment's due date is before the current one
+		{
+			assigned.insert(itr, A); // Insert it before the current one
+			return;
+		}
+	}
 }
 
 void AssignmentList::completeAssignment(Date D)
 {
+	if (assigned.empty())
+	{
+		cout << "List is empty!" << endl;
+		return;
+	}
 	for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
 	{
 		if ((*itr).getAssignedDate() == D)
 		{
 			AssignNode A(*itr);
 			completed.push_back(A);
-			assigned.remove(*itr);
+			assigned.erase(itr);
+			return;
 		}
 	}
-}
-
-void AssignmentList::sortByDueDate(list<AssignNode> L)
-{
-	if (L.size() == 0)
-	{
-		cout << "List is empty" << endl;
-		return;
-	}
-	if (L.size() == 1)
-		return;
-
-	list<AssignNode>::iterator itr = L.begin();
-	while (itr != L.end())
-	{
-		list<AssignNode>::iterator itrNext = itr++;
-		if ((*itr).getDueDate() > (*itrNext).getDueDate())
-		{
-			AssignNode temp = *itr;
-			*itr = *itrNext;
-			*itrNext = temp;
-		}
-		++itr;
-	}
+	cout << "Assignment not found!" << endl;
 	return;
 }
 
 AssignNode AssignmentList::getAssignedItem(Date D)
 {
+	if (assigned.empty())
+	{
+		cout << "List is empty!" << endl;
+	}
 	for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
 	{
 		if ((*itr).getAssignedDate() == D)
 			return *itr;
 	}
+	cout << "Assignment not found" << endl;
 }
 
 AssignNode AssignmentList::getCompletedItem(Date D)
 {
+	if (completed.empty())
+	{
+		cout << "List is empty!" << endl;
+	}
 	for (list<AssignNode>::iterator itr = completed.begin(); itr != completed.end(); ++itr)
 	{
 		if ((*itr).getAssignedDate() == D)
 			return *itr;
 	}
+	cout << "Assignment not found" << endl;
 }
 
 int AssignmentList::getLateCount()
 {
 	int lateCount = 0;
-	for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
+	if (completed.empty())
+		return lateCount;
+	for (list<AssignNode>::iterator itr = completed.begin(); itr != completed.end(); ++itr)
 	{
 		if ((*itr).getStatus() == assignStatus::late)
 			lateCount++;
 	}
 	return lateCount;
 }
+
+list<AssignNode> AssignmentList::getAssignedList()
+{
+	return assigned;
+}
+
+list<AssignNode> AssignmentList::getCompletedList()
+{
+	return completed;
+}
+*/

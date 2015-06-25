@@ -1,12 +1,12 @@
 #pragma once
 
 #include <iostream>
-#include "Date\Date.h"
-#include "Date\StringTokenizer.h"
+#include "Date/Date.h"
+#include "Date/StringTokenizer.h"
 #include <string>
 
 
-enum assignStatus{assigned, completed, late}; 
+enum assignStatus{ assigned, completed, late };
 
 class AssignNode {
 
@@ -14,7 +14,7 @@ private:
 	Date dueDate;
 	string description;
 	Date assignedDate;
-	assignStatus status; 
+	assignStatus status;
 
 public:
 
@@ -31,21 +31,22 @@ public:
 
 	//dueDate get/set
 	Date getDueDate(){ return dueDate; }
-	void setDueDate(string theDueDate){ dueDate = Date(theDueDate); }
+	void setDueDate(string theDueDate){ dueDate = Date(theDueDate, DateFormat::US); }
 
 	//assignedDate get/set
 	Date getAssignedDate(){ return assignedDate; }
-	void setAssignedDate(string theAssignedDate){ assignedDate = Date(theAssignedDate); }
-	
+	void setAssignedDate(string theAssignedDate){ assignedDate = Date(theAssignedDate, DateFormat::US); }
+
+
 	//overloaded input operator for assignments
 	friend istream &operator>>(istream  &input, AssignNode &node)
 	{
-		string line; 
+		string line;
 		getline(input, line);
 
 		//tokenize line
 		String_Tokenizer st(line, ",");
-		
+
 		//vars to hold each value
 		string theDueDate, theDescription, assignedDate, theStatus;
 
@@ -69,23 +70,23 @@ public:
 		theStatus = st3.next_token();
 
 		//converting string of status to enum		
-		if ( theStatus == "assigned")
-			node.status = assignStatus::assigned;   
+		if (theStatus == "assigned")
+			node.status = assignStatus::assigned;
 		else if (theStatus == "completed")
-			node.status = assignStatus::completed; 
+			node.status = assignStatus::completed;
 		else if (theStatus == "late")
-			node.status = assignStatus::late; 
+			node.status = assignStatus::late;
 		else
 			input.setstate(std::ios_base::failbit);
-		
+
 
 		return input;
 	}
-	
+
 	//overloaded output operator
 	friend ostream &operator<<(ostream &output, AssignNode &node)
 	{
-		output << "Due Date: " << node.getDueDate().toString() << endl << "Description: " 
+		output << "Due Date: " << node.getDueDate().toString() << endl << "Description: "
 			<< node.getDescript() << endl << "Assigned Date: " << node.getAssignedDate().toString() << endl << "Status: " << node.getStatus() << endl;
 		return output;
 	}

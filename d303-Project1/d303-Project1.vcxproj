@@ -64,12 +64,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssignmentList.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssignmentList.h" />
     <ClInclude Include="AssignNode.h" />
     <ClInclude Include="Date\Date.h" />
     <ClInclude Include="Date\StringTokenizer.h" />
+    <ClInclude Include="user_interface.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="input.txt" />
