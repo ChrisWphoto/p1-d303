@@ -87,7 +87,17 @@ public:
 	friend ostream &operator<<(ostream &output, AssignNode &node)
 	{
 		output << "Due Date: " << node.getDueDate().toString() << endl << "Description: "
-			<< node.getDescript() << endl << "Assigned Date: " << node.getAssignedDate().toString() << endl << "Status: " << node.getStatus() << endl;
+			<< node.getDescript() << endl << "Assigned Date: " << node.getAssignedDate().toString() << endl << "Status: ";
+		
+		assignStatus S = node.getStatus(); //Print Status as text 
+		
+		switch (S) {
+			case assigned: output << "assigned";    break;
+			case completed: output << "completed"; break;
+			case late: output << "late";  break;
+			default: output.setstate(std::ios_base::failbit);
+		}			
+		cout << endl << endl;
 		return output;
 	}
 

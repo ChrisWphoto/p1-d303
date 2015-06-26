@@ -98,14 +98,14 @@ public:
 			switch (display)
 			{
 			case 0:
-				assignment.printAssignedList();
+				assignment.displayAssignedList();
 				break;
 			case 1:
-				//assignment.printCompletedList();
+				assignment.displayCompletedList();
 				break;
 			case 2:
-				//assignment.printAssignedList();
-				//assignment.printCompletedList();
+				assignment.displayAssignedList();
+				assignment.displayCompletedList();
 				break;
 			};
 		}
@@ -174,15 +174,16 @@ public:
 			cin.ignore();
 			cout << "\nEnter the assigned date to edit (MM-DD-YYYY): ";
 			getline(cin, due_date);
-			Date date(due_date);
+			Date date(due_date, DateFormat::US);
 
 
-			//This is where I want to be able to search for the item first then call the edit function on the item from the list
-			AssignmentList data;
-			AssignNode holder;
+			AssignNode* holder;
 
 			//if in assigned list
-			holder = data.getAssignedItem(date);
+			//holder is a ptr to the node we are editing
+			holder = assignment.getAssignedItem(date);
+
+			cout << "This is holder : " << *holder << endl;
 
 			switch (choice)
 			{
@@ -195,7 +196,7 @@ public:
 			}
 
 		}
-		void edit_due_date(AssignNode& holder)
+		void edit_due_date(AssignNode* holder)
 		{
 			
 
@@ -205,26 +206,28 @@ public:
 			cout << "What is the new due date for this file? ";
 			getline(cin, due_date);
 
-			holder.setDueDate(due_date);
+			holder->setDueDate(due_date);
 
 			cout << "Success\n";
 
-
+			return;
 
 		}
-		void edit_description(AssignNode& holder)
+		void edit_description(AssignNode* holder)
 		{
-			string description;
+			string tempDescription;
 
 
 			//change description of the file
 
 			cout << "What is the new description for this file? ";
-			cin.ignore();//clear whitespace just in case
-			getline(cin, description);
+			//cin.ignore(); deletes first letter of word -CW
+			getline(cin, tempDescription);
 
-			holder.setDescript(description);
+			holder->setDescript(tempDescription);
 			cout << "Success\n";
+
+			return;
 		}
 
 
@@ -235,7 +238,7 @@ public:
 			cin.ignore();
 			cout << "\nEnter the assigned date to complete (MM-DD-YYYY): ";
 			getline(cin, due_date);
-			Date date(due_date);
+			Date date(due_date, DateFormat::US);
 
 			assignment.completeAssignment(date);//complete assignment with date given by user
 		}

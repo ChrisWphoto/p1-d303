@@ -6,6 +6,7 @@
 #include <list>
 using namespace std;
 
+
 class AssignmentList
 {
 private:
@@ -21,25 +22,19 @@ public:
 			return;
 		}
 		else {
-			//bool inserted = false; // tracking whether or not node has been inserted yet -CW
-			
-		//DR	// Do we need the bool? we can just add the push back function after the for loop. 
-			// It won't reach there unless it's at the end of the list.
 
 			for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
 			{
 				if ((*itr).getDueDate() > A.getDueDate()) // If the assignment's due date is before the current one
 				{
 					assigned.insert(itr, A); // Insert it before the current one
-				/	//inserted = true;
+				
 					return;
 				}
 			}
-			// When itr reaches the end of the list the itr->dueDate becomes a large negative number so the above condition will never be true. 
-			//so if we have not inserted yet and we are at the end of the list then we should insert at the end. -CW
-		//DR	//if (inserted == false){
-			assigned.push_back(A);
-		//DR	//}
+			
+			assigned.push_back(A); //insert in last postition
+		
 		}
 	}
 
@@ -65,16 +60,20 @@ public:
 		return;
 	}
 
-	AssignNode& getAssignedItem(Date D)
+	//return ptr to AssignNode for editing
+	AssignNode* getAssignedItem(Date D)
 	{
-		if (assigned.empty())
+		if (assigned.empty()) 
 		{
-			cout << "List is empty!" << endl;
+			cout << "List is empty" << endl;
 		}
 		for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
 		{
-			if ((*itr).getAssignedDate() == D)
-				return *itr;
+			if ((*itr).getAssignedDate() == D){
+				//return *itr;
+				AssignNode* node = &(*itr); // return a pointer node being edited -CW
+				return node;
+			}
 		}
 		cout << "Assignment not found" << endl;
 	}
