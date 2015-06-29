@@ -158,7 +158,32 @@ public:
 		return; // DR
 	}
 
+	//logic portion of printing to file --JW
+	void printToFile(string Name)
+	{
+		ofstream fout(Name);
 
+		//start with assigned list to print
+		if (!assigned.empty())
+		{
+			for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
+			{
+				// due date, description, assigned date, status
+				fout << itr->getDueDate().toString() << ", " << itr->getDescript() << ", " << itr->getAssignedDate().toString() << ", " << itr->getStatus() << endl;
+			}
+		}
+		//then print completed list
+		if (!completed.empty())
+		{
+			for (list<AssignNode>::iterator itr = completed.begin(); itr != completed.end(); ++itr)
+			{
+				// due date, description, assigned date, status
+				fout << itr->getDueDate().toString() << ", " << itr->getDescript() << ", " << itr->getAssignedDate().toString() << ", " << itr->getStatus() << endl;
+			}
+		}
+		
+
+	}
 
 };
 

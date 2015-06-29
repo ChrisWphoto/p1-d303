@@ -64,8 +64,6 @@ public:
 		node.setAssignedDate(assignedDate);
 		node.setDescript(theDescription);
 
-
-
 		String_Tokenizer st3(theStatus);
 		theStatus = st3.next_token();
 
