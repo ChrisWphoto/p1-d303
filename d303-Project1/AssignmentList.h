@@ -37,27 +37,41 @@ public:
 		}
 	}
 
-	void completeAssignment(Date D)
+	void completeAssignment(Date D, Date completedD)
 	{
-		if (assigned.empty())
+		// Find assignment
+		AssignNode* toComplete = getAssignedItem(D);
+
+		// If empty assignment returned, exit function
+		if (toComplete->getDescript() == "")
+			return;
+
+		// Make sure completed date is valid
+		if (toComplete->getAssignedDate() > completedD)
 		{
-			cout << "List is empty!" << endl;
+			cout << "\nInvalid completed date! Assignment cannot be assigned after it was completed.\n" << endl;
 			return;
 		}
+
+		// Check if it's late -> mark as completed if not
+		if (toComplete->getDueDate() < completedD)
+			toComplete->setStatus(assignStatus::late);
+		else
+			toComplete->setStatus(assignStatus::completed);
+
+		// Add assignment to completed list.
+		completed.push_back(*toComplete);
+
+		// Delete assignment from assigned list
 		for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
 		{
 			if ((*itr).getAssignedDate() == D)
 			{
-				(*itr).setStatus(assignStatus::completed);
-				AssignNode A(*itr);
-				completed.push_back(A);
-	/*DR*/		cout << "Assignment completed: " << A.getDescript() << endl << endl;
+				cout << "Assignment completed: " << (*itr).getDescript() << endl << endl;
 				assigned.erase(itr);
 				return;
 			}
 		}
-		cout << "Assignment not found!" << endl;
-		return;
 	}
 
 	AssignNode* findAssignment(Date D, bool isAssigned, bool searchBoth)

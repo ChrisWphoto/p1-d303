@@ -241,12 +241,16 @@ public:
 		{
 
 			string due_date;
+			string completed_date;
 			cin.ignore();
 			cout << "\nEnter the assigned date to complete (MM-DD-YYYY): ";
 			getline(cin, due_date);
 			Date date(due_date, DateFormat::US);
+			cout << "\nEnter the completed date (MM-DD-YYYY): ";
+			getline(cin, completed_date);
+			Date completedDate(completed_date, DateFormat::US);
 
-			assignment.completeAssignment(date);//complete assignment with date given by user
+			assignment.completeAssignment(date, completedDate);//complete assignment with date given by user
 		}
 
 		void list_late()
