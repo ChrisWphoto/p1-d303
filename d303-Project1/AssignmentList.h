@@ -28,7 +28,6 @@ public:
 				if ((*itr).getDueDate() > A.getDueDate()) // If the assignment's due date is before the current one
 				{
 					assigned.insert(itr, A); // Insert it before the current one
-				
 					return;
 				}
 			}
@@ -49,9 +48,10 @@ public:
 		{
 			if ((*itr).getAssignedDate() == D)
 			{
+				(*itr).setStatus(assignStatus::completed);
 				AssignNode A(*itr);
 				completed.push_back(A);
-	/*DR*/			cout << "Assignment completed: " << A.getDescript() << endl << endl;
+	/*DR*/		cout << "Assignment completed: " << A.getDescript() << endl << endl;
 				assigned.erase(itr);
 				return;
 			}
@@ -60,36 +60,83 @@ public:
 		return;
 	}
 
+	AssignNode* findAssignment(Date D, bool isAssigned, bool searchBoth)
+	{
+		if (assigned.empty() && completed.empty())
+		{
+			AssignNode* node = new AssignNode();
+			return node;
+		}
+
+		// check both lists
+		if (searchBoth)
+		{
+			// first search assigned list
+			for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
+			{
+				if ((*itr).getAssignedDate() == D)
+				{
+					AssignNode* node = &(*itr);
+					return node;
+				}
+			}
+			// then search completed list
+			for (list<AssignNode>::iterator itr = completed.begin(); itr != completed.end(); ++itr)
+			{
+				if ((*itr).getAssignedDate() == D)
+				{
+					AssignNode* node = &(*itr);
+					return node;
+				}
+			}
+			// item not found, return empty assignment
+			cout << "Assignment not found" << endl;
+			AssignNode* node = new AssignNode();
+			return node;
+		}
+		else // check only one of the lists
+		{
+			// check assigned List 
+			if (isAssigned)
+			{
+				for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
+				{
+					if ((*itr).getAssignedDate() == D)
+					{
+						AssignNode* node = &(*itr);
+						return node;
+					}
+				}
+			}
+			// check completed list
+			else
+			{
+				for (list<AssignNode>::iterator itr = completed.begin(); itr != completed.end(); ++itr)
+				{
+					if ((*itr).getAssignedDate() == D)
+					{
+						AssignNode* node = &(*itr);
+						return node;
+					}
+				}
+			}
+
+			// item not found, return empty assignment
+			cout << "Assignment not found" << endl;
+			AssignNode* node = new AssignNode();
+			return node;
+		}
+	}
+
 	//return ptr to AssignNode for editing
 	AssignNode* getAssignedItem(Date D)
 	{
-		if (assigned.empty()) 
-		{
-			cout << "List is empty" << endl;
-		}
-		for (list<AssignNode>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
-		{
-			if ((*itr).getAssignedDate() == D){
-				//return *itr;
-				AssignNode* node = &(*itr); // return a pointer node being edited -CW
-				return node;
-			}
-		}
-		cout << "Assignment not found" << endl;
+		return findAssignment(D, true, false);
 	}
 
-	AssignNode& getCompletedItem(Date D)
+	AssignNode* getCompletedItem(Date D)
 	{
-		if (completed.empty())
-		{
-			cout << "List is empty!" << endl;
-		}
-		for (list<AssignNode>::iterator itr = completed.begin(); itr != completed.end(); ++itr)
-		{
-			if ((*itr).getAssignedDate() == D)
-				return *itr;
-		}
-		cout << "Assignment not found" << endl;
+		return findAssignment(D, false, false);
 	}
 
 	int getLateCount()
