@@ -15,8 +15,12 @@ private:
 	string description;
 	Date assignedDate;
 	assignStatus status;
+	Date completedDate;
+	//bool AssignmentIsEmpty; 
 
 public:
+	//empty constructor containing only bool for checking emptiness
+	//AssignNode(bool empty = true) : AssignmentIsEmpty(empty){}
 
 	AssignNode(assignStatus theStatus = assignStatus::assigned) :status(theStatus){}
 
@@ -36,6 +40,10 @@ public:
 	//assignedDate get/set
 	Date getAssignedDate(){ return assignedDate; }
 	void setAssignedDate(string theAssignedDate){ assignedDate = Date(theAssignedDate, DateFormat::US); }
+	
+	//completedDate get/set
+	Date getCompletedDate(){return completedDate;}
+	void setCompletedDate(string theCompletedDate){ completedDate = Date(theCompletedDate, DateFormat::US); }
 
 
 	//overloaded input operator for assignments
