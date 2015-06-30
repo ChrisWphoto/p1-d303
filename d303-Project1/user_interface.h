@@ -165,7 +165,7 @@ public:
 
 
 
-	void edit_assignment()\
+	void edit_assignment()
 		//gets assignemnt from list, then gives option to edit the description or due date
 	{
 			
@@ -201,6 +201,11 @@ public:
 		//if in assigned list
 		//holder is a ptr to the node we are editing
 		holder = assignment.getAssignedItem(date);
+
+		if ((*holder).getDescript() == "")
+		{
+			return;
+		}
 
 		cout << "This is the assignment chosen: \n" << *holder << endl;
 
