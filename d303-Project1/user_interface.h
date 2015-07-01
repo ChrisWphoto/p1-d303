@@ -20,7 +20,7 @@ public:
 	{
 		bool again = true; //always start loop over until exit is selected
 
-		add_assign_from_file();//to fulfill the "initially load from file to fill lists
+		add_assign_from_file();//to fulfill the "initially load from file" to fill lists
 
 		string orders[] = {
 			"Display Assignments",
