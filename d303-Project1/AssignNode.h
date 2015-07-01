@@ -15,14 +15,16 @@ private:
 	string description;
 	Date assignedDate;
 	assignStatus status;
-	Date completedDate;
-	//bool AssignmentIsEmpty; 
+	
 
 public:
-	//empty constructor containing only bool for checking emptiness
-	//AssignNode(bool empty = true) : AssignmentIsEmpty(empty){}
-
-	AssignNode(assignStatus theStatus = assignStatus::assigned) :status(theStatus){}
+	
+	//default constructor
+	AssignNode(assignStatus theStatus = assignStatus::assigned ) :status(theStatus) {
+		//set safe values for dates
+		dueDate = Date("2-1-2000", DateFormat::US);
+		assignedDate = Date("1-1-2000", DateFormat::US);
+	}
 
 
 	//Status get/set
@@ -35,17 +37,33 @@ public:
 
 	//dueDate get/set
 	Date getDueDate(){ return dueDate; }
-	void setDueDate(string theDueDate){ dueDate = Date(theDueDate, DateFormat::US); }
+	void setDueDate(string theDueDate){ 
+		//DueDate must come after assigned date
+		Date tempDueDate = Date(theDueDate, DateFormat::US);
+		
+
+		if (tempDueDate > assignedDate)
+			dueDate = Date(theDueDate, DateFormat::US);
+		else
+			cout << "Input Error: Due Date must come after the Assigned Date: "<< assignedDate.toString() << endl;
+	
+	}
 
 	//assignedDate get/set
 	Date getAssignedDate(){ return assignedDate; }
-	void setAssignedDate(string theAssignedDate){ assignedDate = Date(theAssignedDate, DateFormat::US); }
+	void setAssignedDate(string theAssignedDate){ 
+		//AssignedDate must come before DueDate date
+		Date tempAssignedDate = Date(theAssignedDate, DateFormat::US);
+
+		if (tempAssignedDate < dueDate)
+			assignedDate = Date(theAssignedDate, DateFormat::US);
+		else
+			cout << "Input Error: Assigned Date must come before Due Date: " << dueDate.toString() <<endl;
+		
 	
-	//completedDate get/set
-	Date getCompletedDate(){return completedDate;}
-	void setCompletedDate(string theCompletedDate){ completedDate = Date(theCompletedDate, DateFormat::US); }
-
-
+	}
+	
+	
 	//overloaded input operator for assignments
 	friend istream &operator>>(istream  &input, AssignNode &node)
 	{

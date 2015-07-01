@@ -20,7 +20,7 @@ public:
 	{
 		bool again = true; //always start loop over until exit is selected
 
-		add_assign_from_file();//to fulfill the "initially load from file to fill lists
+		add_assign_from_file();//to fulfill the "initially load from file" to fill lists
 
 		string orders[] = {
 			"Display Assignments",
@@ -198,14 +198,13 @@ public:
 
 		AssignNode* holder;
 
-		//if in assigned list
+		
 		//holder is a ptr to the node we are editing
 		holder = assignment.getAssignedItem(date);
 
-		if ((*holder).getDescript() == "")
-		{
+		//Assignment NOT found -CW
+		if (holder->getDescript() == "")
 			return;
-		}
 
 		cout << "This is the assignment chosen: \n" << *holder << endl;
 
@@ -225,17 +224,26 @@ public:
 	void edit_due_date(AssignNode* holder)
 		//Edits the pointer to an assignment's due date
 	{
+		//hold this for later comparison
+		Date oldDueDate = holder->getDueDate(); 
 			
 
 		string due_date;
 		//change due date
 
+		while (true){
+
 		cout << "What is the new due date for this file? ";
 		getline(cin, due_date);
+			holder->setDueDate(due_date);
 
-		holder->setDueDate(due_date);
+			if (holder->getDueDate() != oldDueDate){
+				cout << "Success! This is the updated assignment: \n" << *holder << endl;
+				break;
+			}
 
-		cout << "Success!\n\n";
+		}
+
 
 		return;
 
